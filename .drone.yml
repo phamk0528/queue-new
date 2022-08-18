@@ -1,0 +1,106 @@
+############################################################################# 1st pipeline
+kind: pipeline
+type: kubernetes
+name: bcxstudio-process
+
+steps:
+- name: queue-image
+  image: plugins/docker
+  settings:
+    registry: kllsgsgpdvfomscr01.azurecr.io
+    username:
+      from_secret: Username
+    password:
+      from_secret: Password
+    repo: kllsgsgpdvfomscr01.azurecr.io/queue
+    tags: ${DRONE_TAG}
+    dockerfile: dockerfile_test
+  when:
+    event:
+    - tag
+- name: queue-status
+  image: kllsgsgpdvfomscr01.azurecr.io/kubectl-helm:latest
+  settings:
+    kubernetes_server:
+      from_secret: k8s_server
+    kubernetes_cert:
+      from_secret: k8s_cert
+    kubernetes_token:
+      from_secret: k8s_token
+  commands:
+    - kubectl get deployment queue
+  when:
+    event:
+      - tag
+- name: 1st-queue-deploy
+  image: kllsgsgpdvfomscr01.azurecr.io/kubectl-helm:latest
+  settings:
+    kubernetes_server:
+      from_secret: k8s_server
+    kubernetes_cert:
+      from_secret: k8s_cert
+    kubernetes_token:
+      from_secret: k8s_token
+  commands:
+    - kubectl create -f k8s/deploy.yaml
+    - kubectl rollout status deployment queue
+  when:
+    status:
+    - failure
+    event:
+    - tag
+- name: updated-queue-deploy
+  image: kllsgsgpdvfomscr01.azurecr.io/kubectl-helm:latest
+  settings:
+    kubernetes_server:
+      from_secret: k8s_server
+    kubernetes_cert:
+      from_secret: k8s_cert
+    kubernetes_token:
+      from_secret: k8s_token
+  commands:
+    - kubectl set image deployment queue queue=kllsgsgpdvfomscr01.azurecr.io/queue:${DRONE_TAG} --record
+  when:
+    event:
+    - tag
+---
+############################################################################# 2nd pipeline
+kind: pipeline
+type: kubernetes
+name: rollback
+
+steps:
+  - name: queue-rollout-status
+    image: kllsgsgpdvfomscr01.azurecr.io/kubectl-helm:latest
+    settings:
+      kubernetes_server:
+        from_secret: k8s_server
+      kubernetes_cert:
+        from_secret: k8s_cert
+      kubernetes_token:
+        from_secret: k8s_token
+    commands:
+      - kubectl rollout status deployment queue
+    when:
+      event:
+        - tag
+
+  - name: queue-deploy-rollback
+    image: kllsgsgpdvfomscr01.azurecr.io/kubectl-helm:latest
+    settings:
+      kubernetes_server:
+        from_secret: k8s_server
+      kubernetes_cert:
+        from_secret: k8s_cert
+      kubernetes_token:
+        from_secret: k8s_token
+    commands:
+      - kubectl rollout undo deployment queue
+    when:
+      status:
+        - failure
+      event:
+        - tag
+        
+depends_on:
+  - bcxstudio-process

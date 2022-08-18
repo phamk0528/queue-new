@@ -1,0 +1,252 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+table.container {
+  table-layout: fixed;
+}
+
+table table {
+  width: 100%;
+  height: 100%;
+}
+.blink_me {
+  -webkit-animation-duration: 3s;
+  animation-duration: 3s;
+  -webkit-animation-name: blinker;
+  animation-name: blinker;
+  animation-timing-function: linear;
+  -webkit-animation-timing-function: linear;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}
+
+.ready_header {
+  background-color: black;
+  width: 1464px;
+  height: 110px;
+  color: white;
+  font-weight: 700;
+  font-size: 70px;
+}
+
+.ready_header_preparing {
+  background-color: black;
+  width: 1920px;
+  height: 110px;
+  color: white;
+  font-weight: 700;
+  font-size: 70px;
+}
+
+.ready_header_portraitTv {
+  background-color: black;
+  width: 1080;
+  height: 80px;
+  color: white;
+  font-weight: 700;
+  font-size: 32px;
+}
+
+.readyPortraitTv {
+  background-color: black;
+  width: 1080px;
+  height: 1840px;
+  color: #f5667e;
+  font-size: 32px;
+}
+
+.readyPortraitTv tr:nth-child(even) {
+  background-color: #1a1a1a;
+}
+.ready {
+  background-color: black;
+  width: 1464px;
+  height: 970px;
+  color: #f5667e;
+  font-size: 32px;
+}
+
+.ready-preparing {
+  background-color: black;
+  width: 1920px;
+  height: 970px;
+  color: #f5667e;
+  font-size: 32px;
+}
+.ready-preparing tr:nth-child(even) {
+  background-color: #1a1a1a;
+}
+
+.ready_header_title_button_portraiTV {
+  border-width: 2px;
+  border-style: solid;
+  width: 300px;
+  border-color: white;
+  padding-top: 10px;
+  margin-top: 10px;
+  padding-bottom: 10px;
+}
+.ready_header_title_button {
+  border-width: 2px;
+  border-style: solid;
+  width: 600px;
+  border-color: white;
+  padding-top: 10px;
+  margin-top: 10px;
+  padding-bottom: 10px;
+}
+
+.ready tr:nth-child(even) {
+  background-color: #1a1a1a;
+}
+
+.row {
+  height: 100px;
+}
+
+.colImg {
+  width: 100px;
+  vertical-align: middle;
+  text-align: center;
+}
+.colImgPortraitTv {
+  width: 100px;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.colRef {
+  vertical-align: left;
+  width: 250px;
+  font-size: 65px;
+}
+.colStore {
+  vertical-align: left;
+  width: 250px;
+  font-size: 65px;
+}
+
+.colNameBranchPreparing {
+  vertical-align: left;
+  width: 350px;
+  font-size: 35px;
+}
+
+.colNameBranch {
+  vertical-align: left;
+  width: 350px;
+  font-size: 35px;
+}
+
+.colClockerNew {
+  vertical-align: left;
+  width: 250px;
+  font-size: 60px;
+}
+.colRefPortraitTv {
+  vertical-align: left;
+  width: 200px;
+  font-size: 48px;
+}
+
+.colRefPortraitTvBranchName {
+  vertical-align: left;
+  width: 200px;
+  font-size: 30px;
+}
+
+.colLocker {
+  vertical-align: middle;
+  width: 70px;
+  font-size: 70px;
+}
+.colLockerPortraitTv {
+  vertical-align: middle;
+  width: 120px;
+  font-size: 48px;
+}
+
+.colOrderRefPortraitTv {
+  vertical-align: middle;
+  width: 120px;
+  font-size: 48px;
+}
+.colPin {
+  vertical-align: middle;
+  width: 140px;
+  font-size: 70px;
+}
+
+.colPinNew {
+  vertical-align: middle;
+  width: 140px;
+  font-size: 60px;
+}
+.colPinPortraitTv {
+  vertical-align: middle;
+  width: 140px;
+  font-size: 48px;
+}
+
+.preparing {
+  background-color: #1a1a1a;
+  width: 456px !important;
+  height: 970px;
+  color: #74561f;
+}
+.ready_prepare {
+  background-color: #1a1a1a;
+  width: 456px;
+  height: 80px;
+  color: #74561f;
+  font-size: 48px;
+}
+
+.footer_container {
+  background-color: white;
+  width: 1464px;
+  height: 80px;
+  color: #f98598;
+  font-size: 32px;
+}
+
+.ready_prepare_title_button {
+  border-width: 2.5px;
+  border-style: solid;
+  width: 250px;
+  border-color: #74561f;
+  padding-top: 10px;
+  margin-top: 10px;
+  padding-bottom: 10px;
+}
+
+.colPrepare {
+  font-size: 48px;
+  width: 150px;
+  max-width: 420px !important;
+
+  padding-left: 25px;
+  padding-right: 10px;
+  color: "#f5667e";
+}
+
+.colPrepare_title {
+  font-size: 42px;
+  font-weight: bold;
+  overflow-wrap: break-word;
+  line-height: 1;
+}
+.colPrepare_description {
+  font-weight: 600;
+  color: white;
+}

@@ -1,0 +1,5 @@
+.dockerignore
+dockerfile
+dockerfile_test
+
+node_modules
