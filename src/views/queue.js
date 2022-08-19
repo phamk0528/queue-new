@@ -77,16 +77,27 @@ function QueueView() {
     setOrderupdate([]);
     const date = new Date(lastMidnight).toISOString();
     const toDate = new Date(nextMidnight).toISOString();
-    const data = await queryQueue(date, toDate, level, locationId, [
-      "ACCEPTED",
-      "PREPARING",
-      "READY_TO_COLLECT",
-      "CONSOLIDATING",
-    ]);
+    const data = await queryQueue(
+      "2022-08-16T17:00:00.000Z",
+      "2022-08-17T17:00:00.000Z",
+      level,
+      locationId,
+      [
+        "ACCEPTED",
+        "PREPARING",
+        "READY_TO_COLLECT",
+        "CONSOLIDATING",
+        "COLLECTED",
+      ]
+    );
 
-    const dataAtLocker = await queryQueue(date, toDate, level, locationId, [
-      "AT_LOCKER",
-    ]);
+    const dataAtLocker = await queryQueue(
+      "2022-08-16T17:00:00.000Z",
+      "2022-08-17T17:00:00.000Z",
+      level,
+      locationId,
+      ["AT_LOCKER", "COLLECTED"]
+    );
 
     let orderPrepareLeft = await data?.lcdOrders
       .sort((a, b) => new Date(a?.updatedAt) - new Date(b?.updatedAt))

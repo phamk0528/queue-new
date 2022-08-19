@@ -122,7 +122,16 @@ const RowPortraitTv = ({ rows, data, ordersUpdate }) =>
         }}
         align="left"
       >
-        {data[items]?.branch?.name ?? <p style={{ color: "transparent" }}></p>}
+        {data[items]?.branch?.name ? (
+          data[items]?.branch?.name?.split("@")[0].substr(0, 15)
+        ) : (
+          <p style={{ color: "transparent" }}></p>
+        )}
+        {data[items]?.branch?.name
+          ? data[items]?.branch?.name?.split("@")[0].length > 15
+            ? "..."
+            : ""
+          : null}
       </td>
 
       <td
@@ -196,7 +205,16 @@ const Row = ({ rows, data, ordersUpdate }) =>
         }}
         align="left"
       >
-        {data[items]?.branch?.name ?? <p style={{ color: "transparent" }}></p>}
+        {data[items]?.branch?.name ? (
+          data[items]?.branch?.name?.split("@")[0].substr(0, 15)
+        ) : (
+          <p style={{ color: "transparent" }}></p>
+        )}
+        {data[items]?.branch?.name
+          ? data[items]?.branch?.name?.split("@")[0].length > 15
+            ? "..."
+            : ""
+          : null}
       </td>
 
       <td
