@@ -10,7 +10,7 @@ import blank_icon from "../BLANK_ICON.png";
 function splitArray(array, n) {
   let [...arr] = array;
   let res = [];
-  while (arr.length) {
+  while (arr?.length) {
     res.push(arr.splice(0, n));
   }
   return res;
@@ -21,29 +21,176 @@ const isNumeric = (num) =>
   (typeof num === "number" || (typeof num === "string" && num.trim() !== "")) &&
   !isNaN(num);
 
+const countNumeric = (orderRef) => {
+  let data = 0;
+  for (let index = 0; index < orderRef?.length; index++) {
+    const element = orderRef[index];
+    if (isNumeric(+element)) {
+      data++;
+    }
+  }
+  return data;
+};
+
 const handleOrderRef = (orderRef) => {
   let data = "";
+  let countNumber = countNumeric(orderRef);
   if (!orderRef?.toLowerCase()?.includes("gf-")) {
-    for (let index = 0; index < orderRef?.length; index++) {
-      const element = orderRef[index];
-      if (index !== 0 && isNumeric(+element)) {
-        data = data + "-";
+    if (!orderRef?.toLowerCase()?.includes("#")) {
+      if (countNumber >= 4) {
+        for (let index = 0; index < orderRef?.length; index++) {
+          const element = orderRef[index];
+          if (index !== 0 && index !== 1 && isNumeric(+element)) {
+            data = data + "-";
+          } else {
+            data = data + element;
+          }
+        }
       } else {
-        data = data + element;
+        for (let index = 0; index < orderRef?.length; index++) {
+          const element = orderRef[index];
+          if (index !== 0 && isNumeric(+element)) {
+            data = data + "-";
+          } else {
+            data = data + element;
+          }
+        }
+      }
+    } else {
+      if (countNumber >= 4) {
+        for (let index = 0; index < orderRef?.length; index++) {
+          const element = orderRef[index];
+          if (
+            index !== 0 &&
+            index !== 1 &&
+            index !== 2 &&
+            isNumeric(+element)
+          ) {
+            data = data + "-";
+          } else {
+            data = data + element;
+          }
+        }
+      } else {
+        for (let index = 0; index < orderRef?.length; index++) {
+          const element = orderRef[index];
+          if (index !== 0 && index !== 1 && isNumeric(+element)) {
+            data = data + "-";
+          } else {
+            data = data + element;
+          }
+        }
       }
     }
+
     return data;
   } else {
-    for (let index = 0; index < orderRef?.length; index++) {
-      const element = orderRef[index];
-      if (index !== 3 && isNumeric(+element)) {
-        data = data + "-";
-      } else {
-        data = data + element;
+    if (!orderRef?.toLowerCase()?.includes("#")) {
+      for (let index = 0; index < orderRef?.length; index++) {
+        const element = orderRef[index];
+        if (countNumber < 4) {
+          if (index !== 3 && isNumeric(+element)) {
+            data = data + "-";
+          } else {
+            data = data + element;
+          }
+        } else {
+          if (index !== 3 && index !== 4 && isNumeric(+element)) {
+            data = data + "-";
+          } else {
+            data = data + element;
+          }
+        }
+      }
+    } else {
+      for (let index = 0; index < orderRef?.length; index++) {
+        const element = orderRef[index];
+        if (countNumber < 4) {
+          if (index !== 4 && isNumeric(+element)) {
+            data = data + "-";
+          } else {
+            data = data + element;
+          }
+        } else {
+          if (index !== 4 && index !== 5 && isNumeric(+element)) {
+            data = data + "-";
+          } else {
+            data = data + element;
+          }
+        }
       }
     }
     return data;
   }
+};
+
+const handleOrderRefFP = (orderRef) => {
+  let data = "";
+  let countNumber = countNumeric(orderRef);
+
+  if (!orderRef?.toLowerCase()?.includes("#")) {
+    if (countNumber >= 4) {
+      for (let index = 0; index < orderRef?.length; index++) {
+        const element = orderRef[index];
+        if (
+          index !== orderRef?.length - 1 &&
+          index !== orderRef?.length - 2 &&
+          isNumeric(+element)
+        ) {
+          data = data + "-";
+        } else {
+          data = data + element;
+        }
+      }
+    } else {
+      for (let index = 0; index < orderRef?.length; index++) {
+        const element = orderRef[index];
+        if (index !== orderRef?.length - 1 && isNumeric(+element)) {
+          data = data + "-";
+        } else {
+          data = data + element;
+        }
+      }
+    }
+  } else {
+    if (countNumber >= 4) {
+      for (let index = 0; index < orderRef?.length; index++) {
+        const element = orderRef[index];
+        if (
+          index !== orderRef?.length - 1 &&
+          index !== orderRef?.length - 2 &&
+          index !== 0 &&
+          isNumeric(+element)
+        ) {
+          data = data + "-";
+        } else {
+          data = data + element;
+        }
+      }
+    } else {
+      for (let index = 0; index < orderRef?.length; index++) {
+        const element = orderRef[index];
+        if (
+          index !== orderRef?.length - 1 &&
+          index !== 0 &&
+          isNumeric(+element)
+        ) {
+          data = data + "-";
+        } else {
+          data = data + element;
+        }
+      }
+    }
+  }
+  // for (let index = 0; index < orderRef?.length; index++) {
+  //   const element = orderRef[index];
+  //   if(index !==  orderRef?.length-1 && isNumeric(+element)){
+  //     data= data+'-'
+  //   }else{
+  //     data= data+element
+  //   }
+  // }
+  return data;
 };
 const Column = (props) => (
   <table>
@@ -102,7 +249,7 @@ const Row = ({ rows, data, ordersUpdate }) =>
           <p style={{ color: "transparent" }}></p>
         )}
         {data[items]?.branch?.name
-          ? data[items]?.branch?.name?.split("@")[0].length > 10
+          ? data[items]?.branch?.name?.split("@")[0]?.length > 10
             ? "..."
             : ""
           : null}
@@ -118,8 +265,10 @@ const Row = ({ rows, data, ordersUpdate }) =>
       >
         {data[items]?.ofo === "kiosk" || data[items]?.ofo === "app" ? (
           data[items]?.orderRef
-        ) : data[items]?.ofo ? (
+        ) : data[items]?.ofo !== "foodpanda" ? (
           handleOrderRef(data[items]?.orderRef)
+        ) : data[items]?.ofo == "foodpanda" ? (
+          handleOrderRefFP(data[items]?.orderRef)
         ) : (
           <p style={{ color: "transparent" }}></p>
         )}

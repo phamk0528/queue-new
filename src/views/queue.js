@@ -82,10 +82,12 @@ function QueueView() {
       "PREPARING",
       "READY_TO_COLLECT",
       "CONSOLIDATING",
+      "COLLECTED",
     ]);
 
     const dataAtLocker = await queryQueue(date, toDate, level, locationId, [
       "AT_LOCKER",
+      "COLLECTED",
     ]);
 
     let orderPrepareLeft = await data?.lcdOrders
