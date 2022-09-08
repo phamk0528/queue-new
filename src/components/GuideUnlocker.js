@@ -23,7 +23,7 @@ const dataMock = [
   },
   {
     title: "Deliveroo/Foodpanda/Grab",
-    description: "Unlock using PIN displayed on screen",
+    description: "Unlock by entering the full Order Number",
   },
   // 0,
   1,
