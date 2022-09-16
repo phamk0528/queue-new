@@ -49,8 +49,8 @@ const AudioPlayerNew = ({ file }) => {
 };
 function QueueView() {
   let query = useQuery();
-  const [level, setLevel] = useState("1");
-  const [locationId, setLocationId] = useState("1");
+  const [level, setLevel] = useState(query.get("level"));
+  const [locationId, setLocationId] = useState(query.get("location"));
   const [status, setStatus] = useState("readyToPickup");
 
   const [isPortrait, setIsPortrait] = useState(false);
@@ -181,11 +181,16 @@ function QueueView() {
     let statusQuery = query.get("status");
     let isPortraitTv = query.get("isPortraitTv");
 
-    if (levelQuery && locationQuery && statusQuery) {
-      setLocationId(locationQuery);
+    if (levelQuery) {
       setLevel(levelQuery);
+    }
+    if (locationQuery) {
+      setLocationId(locationQuery);
+    }
+    if (statusQuery) {
       setStatus(statusQuery);
     }
+
     if (isPortraitTv) {
       setIsPortrait(true);
       setStatus("readyToPickup");
