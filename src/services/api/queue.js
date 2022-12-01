@@ -12,7 +12,8 @@ export const queryQueue = async (
         lcdOrders(locationID:${locationID},filter:{
             statuses:[${statuses}],         
             fromDate:"${fromDate}"
-            toDate:"${toDate}"
+            toDate:"${toDate}",
+            branchGroupID:1
           },level:${level}){
             id orderType lockerNumber status pin orderRef updatedAt ofo 
             branch{
